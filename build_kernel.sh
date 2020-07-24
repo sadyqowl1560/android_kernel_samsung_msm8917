@@ -1,11 +1,25 @@
 #!/bin/bash
 
+#SETUP BUILD ENVIROMENT
+#
 export ARCH=arm
-export PATH=$(pwd)/../PLATFORM/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin:$PATH
+export PATH=/home/yes/android-toolchain/arm-linux-androideabi-4.9-refs_heads_brillo-m7-mr-dev/bin:$PATH
 
-mkdir out
+#CLEAN SOURCE
+#
+OUTDIR=out
+rm -rf $OUTDIR
+mkdir $OUTDIR
+make clean  $OUTDIR && make mrproper $OUTDIR
 
-make -C $(pwd) O=out CROSS_COMPILE=arm-linux-androideabi- j4primelte_sea_open_defconfig
-make -j64 -C $(pwd) O=out CROSS_COMPILE=arm-linux-androideabi-
- 
-cp out/arch/arm/boot/zImage $(pwd)/arch/arm/boot/zImage
+#MAKE DEFCONFIG
+#
+CCV="CROSS_COMPILE=arm-linux-androideabi-"
+ODV="O=$OUTDIR"
+make -C $(pwd) $ODV $CCV j4primelte_sea_open_defconfig
+
+#GET CPU COUNT AND BUILD
+#
+CORE_COUNT=`grep processor /proc/cpuinfo|wc -l`
+make -j$CORE_COUNT -C $(pwd) $ODV $CCV
+cp $OUTDIR/arch/arm/boot/zImage $(pwd)/arch/arm/boot/zImage
