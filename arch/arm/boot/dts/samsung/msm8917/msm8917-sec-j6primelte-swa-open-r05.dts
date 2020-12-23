@@ -11969,8 +11969,8 @@
 		battery,swelling_drop_float_voltage = <0x1036>;
 		battery,swelling_high_rechg_voltage = <0xfa0>;
 		battery,swelling_low_rechg_voltage = <0xfa0>;
-		battery,siop_input_limit_current = <0x3e8>;
-		battery,siop_charging_limit_current = <0x3e8>;
+		battery,siop_input_limit_current = <0x640>;
+		battery,siop_charging_limit_current = <0x640>;
 		battery,chg_float_voltage = <0x10fe>;
 		battery,mivr_voltage = <0x1>;
 		battery,cisd_max_voltage_thr = <0x1388>;
@@ -12034,76 +12034,10 @@
 	};
 
 	cable-info {
-		default_input_current = <0x3e8>;
-		default_charging_current = <0x4b0>;
+		default_input_current = <0x640>;
+		default_charging_current = <0x640>;
 		full_check_current_1st = <0x145>;
 		full_check_current_2nd = <0xaf>;
-
-		current_group_1 {
-			cable_number = <0x1 0x2 0x4 0x13 0x15 0x16 0x17 0x1e>;
-			input_current = <0x1f4>;
-			charging_current = <0x1f4>;
-		};
-
-		current_group_2 {
-			cable_number = <0x19 0x1f>;
-			input_current = <0x3e8>;
-			charging_current = <0x4b0>;
-		};
-
-		current_group_3 {
-			cable_number = <0x5 0x20>;
-			input_current = <0x5dc>;
-			charging_current = <0x5dc>;
-		};
-
-		current_group_4 {
-			cable_number = <0x6 0x7 0x8 0x11 0x12>;
-			input_current = <0x659>;
-			charging_current = <0x9f6>;
-		};
-
-		current_group_5 {
-			cable_number = <0x9>;
-			input_current = <0x659>;
-			charging_current = <0x9f6>;
-		};
-
-		current_group_6 {
-			cable_number = <0xa 0xc 0xe 0xf 0x1b>;
-			input_current = <0x384>;
-			charging_current = <0x4e2>;
-		};
-
-		current_group_7 {
-			cable_number = <0xd>;
-			input_current = <0x2bc>;
-			charging_current = <0x4e2>;
-		};
-
-		current_group_8 {
-			cable_number = <0x18>;
-			input_current = <0x3e8>;
-			charging_current = <0x1c2>;
-		};
-
-		current_group_9 {
-			cable_number = <0x1a>;
-			input_current = <0x7d0>;
-			charging_current = <0x708>;
-		};
-
-		current_group_10 {
-			cable_number = <0xb 0x10 0x1c>;
-			input_current = <0x28a>;
-			charging_current = <0x4e2>;
-		};
-
-		current_group_11 {
-			cable_number = <0x1d>;
-			input_current = <0x1f4>;
-			charging_current = <0x4e2>;
-		};
 	};
 
 	muic {
