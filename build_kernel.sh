@@ -1,19 +1,25 @@
 #!/bin/bash
 
-
-OUT_DIR=out
-
-# you should change the "CROSS_COMPILE" to right toolchain path (you downloaded)
-# ex)CROSS_COMPILE={android platform directory you downloaded}/android/prebuilt/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-
-COMMON_ARGS="-C $(pwd) O=$(pwd)/${OUT_DIR} ARCH=arm CROSS_COMPILE=arm-linux-androideabi- KCFLAGS=-mno-android"
-
-export PATH=$(pwd)/../PLATFORM/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin:$PATH
+#SETUP BUILD ENVIROMENT
+#
 export ARCH=arm
+export PATH=/home/maos/tool-chain/arm-linux-androideabi-4.9/bin:$PATH
 
-[ -d ${OUT_DIR} ] && rm -rf ${OUT_DIR}
-mkdir ${OUT_DIR}
+#CLEAN SOURCE
+#
+OUTDIR=out
+rm -rf $OUTDIR
+mkdir $OUTDIR
+make clean  $OUTDIR && make mrproper $OUTDIR
 
-make ${COMMON_ARGS} j6primelte_swa_open_defconfig
-make -j64 ${COMMON_ARGS}
+#MAKE DEFCONFIG
+#
+CCV="CROSS_COMPILE=arm-linux-androideabi-"
+ODV="O=$OUTDIR"
+make -C $(pwd) $ODV $CCV j6primelte_swa_kali_open_defconfig
 
-cp ${OUT_DIR}/arch/arm/boot/zImage $(pwd)/arch/arm/boot/zImage
+#GET CPU COUNT AND BUILD
+#
+CORE_COUNT=`grep processor /proc/cpuinfo|wc -l`
+make -j$CORE_COUNT -C $(pwd) $ODV $CCV
+cp $OUTDIR/arch/arm/boot/zImage $(pwd)/arch/arm/boot/zImage
